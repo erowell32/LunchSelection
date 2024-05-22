@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+	<h1>So Whatcha Whatcha Whatcha Want!</h1>
+	<form name="f">
+		<table>
+			<tr>
+				<td>
+					<input type="checkbox" name="food" value="Arby's">Arby's<br>
+					<input type="checkbox" name="food" value="Burger King">Burger King<br>
+					<input type="checkbox" name="food" value="Bojangles">Bojangles<br>
+					<input type="checkbox" name="food" value="Capatin D's">Captain D's<br>
+					<input type="checkbox" name="food" value="Christian and Jake's">Christian and Jake's<br>
+					<input type="checkbox" name="food" value="Church's">Church's<br>
+					<input type="checkbox" name="food" value="El Nopal">El Nopal<br>
+				</td>
+				<td>
+					<input type="checkbox" name="food" value="Cracker Barrel">Cracker Barrel<br>
+					<input type="checkbox" name="food" value="Dairy Queen">Dairy Queen<br>
+					<input type="checkbox" name="food" value="Dubs">Dubs<br>
+					<input type="checkbox" name="food" value="Duke's">Duke's<br>
+					<input type="checkbox" name="food" value="El Pueblito">El Pueblito<br>
+					<input type="checkbox" name="food" value="Gondelier's">Gondelier's<br>
+					<input type="checkbox" name="food" value="Krystal">Krystal<br>
+					<input type="checkbox" name="food" value="Little Ceaser's">Little Ceaser's<br>
+					<input type="checkbox" name="food" value="Long John Silvers">Long John Silvers<br>
+				</td>
+				<td>
+					<input type="checkbox" name="food" value="McDonald's">McDonald's<br>
+					<input type="checkbox" name="food" value="Peng's">Peng's<br>
+					<input type="checkbox" name="food" value="Popeye's">Popeye's<br>
+					<input type="checkbox" name="food" value="Subway">Subway<br>
+					<input type="checkbox" name="food" value="Taco Bell">Taco Bell<br>
+					<input type="checkbox" name="food" value="Jerusalem Grill">Jerusalem Grill<br>
+					<input type="checkbox" name="food" value="Waffle House">Waffle House<br>
+					<input type="checkbox" name="food" value="Wendy's">Wendy's<br>
+					<input type="checkbox" name="food" value="Zaxby's">Zaxby's<br>
+				</td>
+				<td>
+					<div id="div1"></div>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<button name="pick" onclick="getChecked()">Pick</button>
+	<button name="clear" onclick="Clear()">Clear</button>
+	<button name="selectAll" onclick="selectAll()">Select All</button>
+	<br><br>
+	If not listed, add using this. <br>
+	<input name="input" type="text" id="addbox">
+	<button name="add" onclick="addCheckbox()">Add</button>
+	<p id="error"></p>
+	<p id="result">Result:</p>
+
+	<script>
+		import './lunch.css';
+		var count = [document.f.food.length];
+		//FUNCTIONS
+
+		//creates a list of items checked and randomly selects one to display
+		function getChecked() {
+			var list = [];
+			var boxes = document.f.food.length;
+			for (i = 0; i < boxes; i++) {
+				if (document.f.food[i].checked) {
+					list.push(document.f.food[i].value)
+				}
+			}
+			if (list.length > 0) {
+				var r = Math.floor((Math.random() * list.length));
+				var p = list[r]
+				document.getElementById("result").innerHTML = "Result: " + p;
+			}
+			else {
+				document.getElementById("result").innerHTML = "Result: Go to Kroger!";
+			}
+		}
+
+		//clears all selections and result
+		function Clear() {
+			var boxes = document.f.food.length;
+			for (i = 0; i < boxes; i++) {
+				document.f.food[i].checked = false;
+			}
+
+			document.getElementById("error").innerHTML = "";
+			document.getElementById("result").innerHTML = "Result: ";
+		}
+
+		//clears all selections and result
+		function selectAll() {
+			var boxes = document.f.food.length;
+			for (i = 0; i < boxes; i++) {
+				document.f.food[i].checked = true;
+			}
+
+			document.getElementById("error").innerHTML = "";
+			document.getElementById("result").innerHTML = "Result: ";
+		}
+
+
+		//creates a new checkbox and adds it to the table
+		function addCheckbox() {
+			if (document.getElementById("addbox").value != "") {
+				var checkbox = document.createElement('input');
+				checkbox.type = "checkbox";
+				checkbox.name = "food";
+				checkbox.value = document.getElementById("addbox").value;
+				checkbox.id = "id"
+
+				var label = document.createElement('label')
+				label.htmlFor = "id";
+				label.appendChild(document.createTextNode(document.getElementById("addbox").value));
+				var b = document.createElement("br");
+				div1.appendChild(checkbox);
+				div1.appendChild(label);
+				div1.appendChild(b);
+				document.getElementById("error").innerHTML = "";
+				document.getElementById("addbox").value = "";
+			}
+			else {
+				document.getElementById("error").innerHTML = "Nothing entered!";
+			}
+		}
+	</script>
+	<br>
+</body>
+
+</html>
